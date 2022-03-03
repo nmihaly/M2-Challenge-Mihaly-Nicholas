@@ -46,7 +46,7 @@ public class MathSolutionControllerTest {
     }
 
     @Test
-    public void shouldReturn422ErrorForInvalidRequestAddMethod() throws Exception {
+    public void shouldReturn422ErrorForHttpMessageNotReadableExceptionAddMethod() throws Exception {
         Map<String, String> input = new HashMap<>();
         input.put("operand1", "ten");
         input.put("operand2", "10");
@@ -57,6 +57,20 @@ public class MathSolutionControllerTest {
                 MockMvcRequestBuilders.post("/add")
                         .content(inputAdd)
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    public void shouldReturn422ErrorForMethodArgumentNotValidExceptionAddMethod() throws Exception {
+        Map<String, String> input = new HashMap<>();
+        input.put("operand2", "10");
+
+        String inputAdd = mapper.writeValueAsString(input);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/add")
+                                .content(inputAdd)
+                                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -79,10 +93,25 @@ public class MathSolutionControllerTest {
 
 
     @Test
-    public void shouldReturn422ErrorForInvalidRequestSubtractMethod() throws Exception {
+    public void shouldReturn422ErrorForHttpMessageNotReadableExceptionSubtractMethod() throws Exception {
         Map<String, String> input = new HashMap<>();
         input.put("operand1", "ten");
         input.put("operand2", "10");
+
+        String inputSubtract = mapper.writeValueAsString(input);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/subtract")
+                                .content(inputSubtract)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturn422ErrorForMethodArgumentNotValidExceptionSubtractMethod() throws Exception {
+        Map<String, String> input = new HashMap<>();
+        input.put("operand1", "ten");
 
         String inputSubtract = mapper.writeValueAsString(input);
 
@@ -110,10 +139,26 @@ public class MathSolutionControllerTest {
     }
 
     @Test
-    public void shouldReturn422ErrorForInvalidRequestMultiplyMethod() throws Exception {
+    public void shouldReturn422ErrorForHttpMessageNotReadableExceptionMultiplyMethod() throws Exception {
         Map<String, String> input = new HashMap<>();
         input.put("operand1", "ten");
         input.put("operand2", "10");
+
+        String inputMultiply = mapper.writeValueAsString(input);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/multiply")
+                                .content(inputMultiply)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturn422ErrorForMethodArgumentNotValidExceptionMultiplyMethod() throws Exception {
+        Map<String, String> input = new HashMap<>();
+
+        input.put("operand2", "9");
 
         String inputMultiply = mapper.writeValueAsString(input);
 
@@ -143,10 +188,26 @@ public class MathSolutionControllerTest {
 
 
     @Test
-    public void shouldReturn422ErrorForInvalidRequestDivideMethod() throws Exception {
+    public void shouldReturn422ErrorForHttpMessageNotReadableExceptionDivideMethod() throws Exception {
         Map<String, String> input = new HashMap<>();
         input.put("operand1", "ten");
         input.put("operand2", "10");
+
+        String inputDivide = mapper.writeValueAsString(input);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/add")
+                                .content(inputDivide)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturn422ErrorForMethodArgumentNotValidExceptionDivideMethod() throws Exception {
+        Map<String, String> input = new HashMap<>();
+        input.put("operand1", "nine");
+
 
         String inputDivide = mapper.writeValueAsString(input);
 
@@ -164,7 +225,6 @@ public class MathSolutionControllerTest {
         MathSolution output = new MathSolution(10,0,"divide", 0);
 
         String inputJson = mapper.writeValueAsString(output);
-        String outputJson = mapper.writeValueAsString(output);
 
         mockMvc.perform(
                         post("/divide").content(inputJson)

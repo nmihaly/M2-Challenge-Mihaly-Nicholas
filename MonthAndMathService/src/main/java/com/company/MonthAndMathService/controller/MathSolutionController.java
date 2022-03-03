@@ -19,10 +19,7 @@ public class MathSolutionController {
     @ResponseStatus(HttpStatus.CREATED)
     public MathSolution createAddSolution(@RequestBody @Valid MathSolution input) {
       int answer = input.getOperand1() + input.getOperand2();
-      input.setAnswer(answer);
-      input.setOperation("add");
-      return input;
-    //  return new MathSolution(input.getOperand1(),input.getOperand2(),"add", answer);
+      return new MathSolution(input.getOperand1(),input.getOperand2(),"add", answer);
     }
 
     @PostMapping("/subtract")

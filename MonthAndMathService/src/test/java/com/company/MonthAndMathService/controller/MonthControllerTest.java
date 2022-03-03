@@ -39,6 +39,7 @@ public class MonthControllerTest {
 
     @Test
     public void shouldReturn422StatusCodeIfMonthInputNotValid() throws Exception {
+
         mockMvc.perform(get("/month/-1"))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
