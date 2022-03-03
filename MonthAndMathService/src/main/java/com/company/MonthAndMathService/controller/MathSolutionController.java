@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-;
+
 
 @RestController
 public class MathSolutionController {
@@ -19,9 +19,10 @@ public class MathSolutionController {
     @ResponseStatus(HttpStatus.CREATED)
     public MathSolution createAddSolution(@RequestBody @Valid MathSolution input) {
       int answer = input.getOperand1() + input.getOperand2();
-//      if (input.getOperand1() && input.getOperand2() != INt)
-      return new MathSolution(input.getOperand1(),input.getOperand2(),"add", answer);
-
+      input.setAnswer(answer);
+      input.setOperation("add");
+      return input;
+    //  return new MathSolution(input.getOperand1(),input.getOperand2(),"add", answer);
     }
 
     @PostMapping("/subtract")

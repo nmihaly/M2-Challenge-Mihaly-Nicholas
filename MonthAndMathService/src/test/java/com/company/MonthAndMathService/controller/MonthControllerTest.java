@@ -1,5 +1,7 @@
 package com.company.MonthAndMathService.controller;
 
+import com.company.MonthAndMathService.models.Month;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,12 @@ public class MonthControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     @Test
     public void shouldReturnMonthOnValidPathEntry() throws Exception {
-        String responseOutput = "January";
+        Month outputMonth = new Month(1, "January");
+        String responseOutput = mapper.writeValueAsString(outputMonth);
 
         mockMvc.perform(
                 get("/month/1")
@@ -31,13 +36,19 @@ public class MonthControllerTest {
                 ).andExpect(content().string(responseOutput));
     }
 
+
     @Test
-    public void shouldReturn422ErrorForOutOfRangeInput() throws Exception {
-        mockMvc.perform(
-                get("/month/13")
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andDo(print()).andExpect(status().isUnprocessableEntity());
+    public void shouldReturn422StatusCodeIfMonthInputNotValid() throws Exception {
+        mockMvc.perform(get("/month/-1"))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
-    // Test RandomMonth ?
+    @Test
+    public void shouldReturnRandomMonth() throws Exception {
+        mockMvc.perform(
+                get("/randomMonth")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andDo(print()).andExpect(status().isOk());
+    }
 }

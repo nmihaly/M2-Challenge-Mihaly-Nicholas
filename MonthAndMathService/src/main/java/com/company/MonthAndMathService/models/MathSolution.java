@@ -1,39 +1,30 @@
 package com.company.MonthAndMathService.models;
 
-
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class MathSolution {
 
-   @NotNull(message = "You must supply an integer for operand1.")
-   private int operand1;
-   @NotNull(message = "You must supply an integer for operand1.")
-    private int operand2;
+    @NotNull(message = "You must supply an integer for operand1.")
+    Integer operand1;
+    @NotNull(message = "You must supply an integer for operand1.")
+    Integer operand2;
     private String operation;
     private int answer;
 
-    public MathSolution(int operand1, int operand2, String operation, int answer) {
-        this.operand1 = operand1;
-        this.operand2 = operand2;
-        this.operation = operation;
-        this.answer = answer;
-    }
-
-    public int getOperand1() {
+    public Integer getOperand1() {
         return operand1;
     }
 
-    public void setOperand1(int operand1) {
+    public void setOperand1(Integer operand1) {
         this.operand1 = operand1;
     }
 
-    public int getOperand2() {
+    public Integer getOperand2() {
         return operand2;
     }
 
-    public void setOperand2(int operand2) {
+    public void setOperand2(Integer operand2) {
         this.operand2 = operand2;
     }
 
@@ -53,12 +44,20 @@ public class MathSolution {
         this.answer = answer;
     }
 
+    public MathSolution(Integer operand1, Integer operand2, String operation, int answer) {
+        this.operand1 = operand1;
+        this.operand2 = operand2;
+        this.operation = operation;
+        this.answer = answer;
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MathSolution that = (MathSolution) o;
-        return operand1 == that.operand1 && operand2 == that.operand2 && answer == that.answer && Objects.equals(operation, that.operation);
+        MathSolution solution = (MathSolution) o;
+        return answer == solution.answer && Objects.equals(operand1, solution.operand1) && Objects.equals(operand2, solution.operand2) && Objects.equals(operation, solution.operation);
     }
 
     @Override
@@ -66,6 +65,13 @@ public class MathSolution {
         return Objects.hash(operand1, operand2, operation, answer);
     }
 
-
+    @Override
+    public String toString() {
+        return "MathSolution{" +
+                "operand1=" + operand1 +
+                ", operand2=" + operand2 +
+                ", operation='" + operation + '\'' +
+                ", answer=" + answer +
+                '}';
+    }
 }
-

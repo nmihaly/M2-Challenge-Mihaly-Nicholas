@@ -39,9 +39,9 @@ public class MonthController {
             }
 
         }
-        if (monthNumber < 1 || monthNumber > 13) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Input is out of range!");
-        }
+//        if (monthNumber < 1 || monthNumber > 13) {
+//            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Input is out of range!");
+//        }
         return foundMonth;
     }
 
